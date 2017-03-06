@@ -11,7 +11,8 @@ var getWorksFromBuild = () => {
 		var itemString = iPlus + ". " + workId + " " + workName + "\n";
 		items += itemString;
 	}
-	copyTextToClipboard(items);
+	
+	SFAA.copyText(items);
 };
 
 var buildTabCollection = document.getElementsByClassName("wt-ADM_Build");

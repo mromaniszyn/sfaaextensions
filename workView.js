@@ -4,36 +4,31 @@ SFAA.workView = function(){
 		return {};
 	}
 	
+	var createButton = (parentNode, description, title, txtGetter) => {
+		var btn = SFAA.addAfter(parentNode, 'BUTTON');
+		btn.innerHTML = description;
+		btn.title = title;
+		
+		SFAA.addClick(btn, () => {
+			var txt = txtGetter();
+			SFAA.copyText(txt);
+		});
+		
+	};
+	
 	var addCopyWorkId = () => {
 		var div = SFAA.gCF('content');
 		if(!(div && div.tagName === 'DIV')){
 			return;
 		}
 		var workIdNode = SFAA.gChT(div, 'H2');
-		//alert(workIdNode);
+
+		createButton(workIdNode, 'Copy Work Id', 'Copy the Work Id to you clipboard', () => { return workIdNode.innerHTML; });
+		createButton(workIdNode, 'Copy Work Id And Url', 'Copy "the Work Id + space + url to it" to you clipboard', () => {return workIdNode.innerHTML + ' ' + workIdNode.baseURI; });
 		
-		var btn = SFAA.addAfter(workIdNode, 'BUTTON');
-		btn.innerHTML = 'COPY';
-		btn.title = 'Ctrl + A + W';
-		SFAA.addClick(btn, () => {
-			var txt = workIdNode.innerHTML;
-			SFAA.copyText(txt);
-		});
-	};
-	
-	
-	var keyboardListener = () => {
-		document.onkeypress = (ev) => {
-			ev = ev || window.event;
-			var charCode = (typeof ev.which == "number") ? ev.which : ev.keyCode;
-			if (charCode) {
-				// alert(charCode + " Character typed: " + String.fromCharCode(charCode));
-			}
-		};
 	};
 	
 	addCopyWorkId();
-	keyboardListener();
 	
 	return {
 		
