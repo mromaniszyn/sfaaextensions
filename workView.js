@@ -16,19 +16,24 @@ SFAA.workView = function(){
 		
 	};
 	
-	var addCopyWorkId = () => {
+	var addWorkIdButtons = () => {
 		var div = SFAA.gCF('content');
 		if(!(div && div.tagName === 'DIV')){
 			return;
 		}
 		var workIdNode = SFAA.gChT(div, 'H2');
 
-		createButton(workIdNode, 'Copy Work Id', 'Copy the Work Id to you clipboard', () => { return workIdNode.innerHTML; });
-		createButton(workIdNode, 'Copy Work Id And Url', 'Copy "the Work Id + space + url to it" to you clipboard', () => {return workIdNode.innerHTML + ' ' + workIdNode.baseURI; });
-		
+		createButton(workIdNode, 'Copy Work To Commit', 'Copy "the Work Id + comma + space + Subject of Work" to your clipboard (Used when you are committing the change)', () => {
+			var theId = workIdNode.innerHTML;
+			var subjectNode = SFAA.gE('userStoryDetailPage_userStoryWorkForm_subjectInput_inputComponent_outputStandalone_ileinner');
+			var subject = subjectNode.innerHTML;
+			return theId + ', ' + subject;
+		});
+		createButton(workIdNode, 'Copy Work Id And Url', 'Copy "the Work Id + space + url to it" to your clipboard', () => {return workIdNode.innerHTML + ' ' + workIdNode.baseURI; });		
+		createButton(workIdNode, 'Copy Work Id', 'Copy the Work Id to your clipboard', () => { return workIdNode.innerHTML; });
 	};
 	
-	addCopyWorkId();
+	addWorkIdButtons();
 	
 	return {
 		
