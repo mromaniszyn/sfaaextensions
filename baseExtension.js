@@ -7,6 +7,7 @@ var SFAA = function(){
 			home: 'Home',
 			work: 'Work',
 			build: 'Build',
+			sprints: 'Sprints',
 		}
 	};
 
