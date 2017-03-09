@@ -15,8 +15,7 @@ var getWorksFromBuild = () => {
 	SFAA.copyText(items);
 };
 
-var buildTabCollection = document.getElementsByClassName("wt-ADM_Build");
-if (buildTabCollection && buildTabCollection.length === 1 && buildTabCollection[0].className.indexOf("zen-active") > -1) {
+if ((SFAA.getView() === SFAA.consts.views.build)) {
 	var pbTitles = document.getElementsByClassName("pbTitle");
 	for (var i = 0, ci = pbTitles.length; i < ci; i++) {
 		var pbTitle = pbTitles[i];

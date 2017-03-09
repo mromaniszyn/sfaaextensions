@@ -6,6 +6,7 @@ var SFAA = function(){
 		views: {
 			home: 'Home',
 			work: 'Work',
+			build: 'Build',
 		}
 	};
 
@@ -128,7 +129,8 @@ var SFAA = function(){
 					return child.firstChild.innerText;
 				}
 			}
-			return "N/A";
+			var pageType = document.getElementsByClassName('pageType')[0];
+			return pageType.childNodes[0].nodeValue;
 		});
 	};
 	
