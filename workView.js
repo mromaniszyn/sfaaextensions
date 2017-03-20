@@ -1,5 +1,5 @@
 SFAA.workView = function(){	
-	var oneWorkView = (SFAA.getView() === SFAA.consts.views.work) && (SFAA.getUrl().indexOf('quad--agf.na16.visual.force.com') > -1);
+	var oneWorkView = (SFAA.getView() === SFAA.consts.views.work) && (SFAA.getUrl().indexOf('visual.force.com') > -1);
 	if(!oneWorkView){
 		return {};
 	}
