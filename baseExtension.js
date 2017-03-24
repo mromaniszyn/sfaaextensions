@@ -6,7 +6,7 @@ var SFAA = function(){
 		views: {
 			home: 'Home',
 			work: 'Work',
-			build: 'Build',
+			build: 'Builds',
 			sprints: 'Sprints',
 		}
 	};
