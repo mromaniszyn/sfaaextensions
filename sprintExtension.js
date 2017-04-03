@@ -9,4 +9,9 @@ if (SFAA.getView() === SFAA.consts.views.sprints) {
 			}
 		}
 	}
+	
+	var virtualwall = SFAA.gE('virtualwall');
+	if(virtualwall){
+		SFAA.setWorkStatusesInSprintView();
+	}
 }

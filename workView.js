@@ -38,6 +38,15 @@ SFAA.workView = function(){
 	
 	addWorkIdButtons();
 	
+	var userStoryDetailPage = document.getElementById('userStoryDetailPage:userStoryWorkForm:statusInput:inputComponent:outputWithContainer');
+	if(userStoryDetailPage){
+		userStoryDetailPage.children[0].addEventListener("dblclick", function(){
+			SFAA.setWorkStatusesInWork();
+		});
+	}else{
+		SFAA.setWorkStatusesInWork();
+	}
+	
 	return {
 		
 	};
