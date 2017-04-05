@@ -1,4 +1,14 @@
-//var SFAA1 = {};
+if (!String.prototype.format) {
+  String.prototype.format = function() {
+	var args = arguments;
+	return this.replace(/{(\d+)}/g, function(match, number) { 
+	  return typeof args[number] !== 'undefined'
+		? args[number]
+		: match
+	  ;
+	});
+  };
+}
 
 var SFAA = function(){
 
@@ -135,6 +145,29 @@ var SFAA = function(){
 		});
 	};
 	
+	var workStatuses = [{ text:"New"},
+		{ text:"Ready"},
+		{ text:"In Progress"},
+		{ text:"Code Complete"},
+		{ text:"Ready for Review"},
+		{ text:"Code Review Completed"},
+		{ text:"Ready for QA"},
+		{ text:"QA In Progress"},
+		{ text:"QA Complete"},
+		{ text:"QA Failed"},
+		{ text:"Pending Release"},
+		{ text:"Closed"},
+		{ text:"--None--"},
+		{ text:"Acknowledged"},
+		{ text:"Blocked"},
+		{ text:"Duplicate"},
+		{ text:"Fixed"},
+		{ text:"Integrate"},
+		{ text:"Never"},
+		{ text:"Planning"},
+		{ text:"Triaged"},
+		{ text:"Waiting"}];
+		
 	return {
 		consts: consts,
 		gE : docs.gE,
@@ -149,8 +182,9 @@ var SFAA = function(){
 		
 		
 		copyText : copyTextToClipboard,
-		getView : getView
+		getView : getView,
 		
+		workStatuses : workStatuses
 	};
 }();
 
