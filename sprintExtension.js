@@ -11,7 +11,26 @@ if (SFAA.getView() === SFAA.consts.views.sprints) {
 	}
 	
 	var virtualwall = SFAA.gE('virtualwall');
-	if(virtualwall){
-		SFAA.setWorkStatusesInSprintView();
+	if(virtualwall){			
+		var setWorkStatusesInSprintView = function(){
+			var menuWork = SFAA.gE("menu_work");
+			if(menuWork){
+				var items = menuWork.querySelectorAll('[data-recordtypes="user_story"]');
+				for(var i = 0; i < items.length; i++){
+					menuWork.removeChild(items[i])
+				}
+				
+				for(var i = 0; i < SFAA.workStatuses.length; i++){				
+					for(var j = 0; j < items.length; j++){
+						if(items[j].textContent === SFAA.workStatuses[i].text){
+							menuWork.appendChild(items[j]);
+							break;
+						}
+					}
+				}
+			}
+		}
+		
+		setWorkStatusesInSprintView();
 	}
 }

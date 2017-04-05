@@ -39,12 +39,37 @@ SFAA.workView = function(){
 	addWorkIdButtons();
 	
 	var userStoryDetailPage = document.getElementById('userStoryDetailPage:userStoryWorkForm:statusInput:inputComponent:outputWithContainer');
+			
+	var workStatusPattern = '<option value="{0}">{0}</option>';	
+			
+	var setWorkStatusesInWork = function(){
+		var menuWork = SFAA.gE('userStoryDetailPage_userStoryWorkForm_statusInput_inputComponent_outputWithContainer');
+		if(!menuWork){
+			menuWork = SFAA.gE('userStoryWorkPage:storyWorkForm:statusInput:inputComponent:inputFieldWithContainer');
+		}
+		if(menuWork){
+			var selected = menuWork.selectedOptions[0].value;
+			menuWork.innerHTML = "";
+			
+			for(var i = 0; i < SFAA.workStatuses.length; i++){		
+				var item = workStatusPattern.format(SFAA.workStatuses[i].text);
+				menuWork.innerHTML += item;
+			}
+			
+			for(var i = 0; i < menuWork.childNodes.length; i++){		
+				if(menuWork.childNodes[i].value === selected){
+					menuWork.childNodes[i].selected = true;
+				}
+			}
+		}
+	}
+	
 	if(userStoryDetailPage){
 		userStoryDetailPage.children[0].addEventListener("dblclick", function(){
-			SFAA.setWorkStatusesInWork();
+			setWorkStatusesInWork();
 		});
 	}else{
-		SFAA.setWorkStatusesInWork();
+		setWorkStatusesInWork();
 	}
 	
 	return {

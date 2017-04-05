@@ -1,9 +1,8 @@
-//var SFAA1 = {};
 if (!String.prototype.format) {
   String.prototype.format = function() {
 	var args = arguments;
 	return this.replace(/{(\d+)}/g, function(match, number) { 
-	  return typeof args[number] != 'undefined'
+	  return typeof args[number] !== 'undefined'
 		? args[number]
 		: match
 	  ;
@@ -169,49 +168,6 @@ var SFAA = function(){
 		{ text:"Triaged"},
 		{ text:"Waiting"}];
 		
-	var workStatusPattern = '<option value="{0}">{0}</option>';	
-			
-	var setWorkStatusesInSprintView = function(){
-		var menuWork = docs.gE("menu_work");
-		if(menuWork){
-			var items = menuWork.querySelectorAll('[data-recordtypes="user_story"]');
-			for(var i = 0; i < items.length; i++){
-				menuWork.removeChild(items[i])
-			}
-			
-			for(var i = 0; i < workStatuses.length; i++){				
-				for(var j = 0; j < items.length; j++){
-					if(items[j].textContent === workStatuses[i].text){
-						menuWork.appendChild(items[j]);
-						break;
-					}
-				}
-			}
-		}
-	}
-			
-	var setWorkStatusesInWork = function(){
-		var menuWork = docs.gE('userStoryDetailPage_userStoryWorkForm_statusInput_inputComponent_outputWithContainer');
-		if(!menuWork){
-			menuWork = docs.gE('userStoryWorkPage:storyWorkForm:statusInput:inputComponent:inputFieldWithContainer');
-		}
-		if(menuWork){
-			var selected = menuWork.selectedOptions[0].value;
-			menuWork.innerHTML = "";
-			
-			for(var i = 0; i < workStatuses.length; i++){		
-				var item = workStatusPattern.format(workStatuses[i].text);
-				menuWork.innerHTML += item;
-			}
-			
-			for(var i = 0; i < menuWork.childNodes.length; i++){		
-				if(menuWork.childNodes[i].value === selected){
-					menuWork.childNodes[i].selected = true;
-				}
-			}
-		}
-	}
-	
 	return {
 		consts: consts,
 		gE : docs.gE,
@@ -228,8 +184,7 @@ var SFAA = function(){
 		copyText : copyTextToClipboard,
 		getView : getView,
 		
-		setWorkStatusesInSprintView : setWorkStatusesInSprintView,
-		setWorkStatusesInWork: setWorkStatusesInWork
+		workStatuses : workStatuses
 	};
 }();
 
