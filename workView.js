@@ -23,6 +23,16 @@ SFAA.workView = function(){
 		}
 		var workIdNode = SFAA.gChT(div, 'H2');
 
+		createButton(workIdNode, 'Copy All Work', 'Copy "the Work Id + comma + space + Subject of Work + space + Url" to your clipboard.', () => {
+			var theId = workIdNode.innerHTML;
+			var subjectNode = SFAA.gE('userStoryDetailPage_userStoryWorkForm_subjectInput_inputComponent_outputStandalone_ileinner');
+			if(!subjectNode){
+				subjectNode = SFAA.gE('bugDetailPage_bugWorkForm_subjectInput_inputComponent_outputStandalone_ileinner');
+			}			
+			var subject = subjectNode.innerHTML;
+			return theId + ', ' + subject + ' ' + workIdNode.baseURI;
+		});
+		
 		createButton(workIdNode, 'Copy Work To Commit', 'Copy "the Work Id + comma + space + Subject of Work" to your clipboard (Used when you are committing the change)', () => {
 			var theId = workIdNode.innerHTML;
 			var subjectNode = SFAA.gE('userStoryDetailPage_userStoryWorkForm_subjectInput_inputComponent_outputStandalone_ileinner');
