@@ -4,16 +4,24 @@ SFAA.workView = function(){
 		return {};
 	}
 	
-	var createButton = (parentNode, description, title, txtGetter) => {
+	var createButton = (parentNode, description, title, callback, options) => {
+		options = options || {'copy': true};
 		var btn = SFAA.addAfter(parentNode, 'BUTTON');
 		btn.innerHTML = description;
 		btn.title = title;
 		
-		SFAA.addClick(btn, () => {
-			var txt = txtGetter();
-			SFAA.copyText(txt);
-		});
-		
+		if(options.copy){
+			SFAA.addClick(btn, () => {
+				var txt = callback();
+				SFAA.copyText(txt);
+			});
+		}
+		if(options.click){
+			SFAA.addClick(btn, callback);
+		}
+		if(options.buttonType){
+			btn.type = options.buttonType;
+		}
 	};
 	
 	var addWorkIdButtons = () => {
@@ -33,7 +41,7 @@ SFAA.workView = function(){
 			return theId + ', ' + subject + ' ' + workIdNode.baseURI;
 		});
 		
-		createButton(workIdNode, 'Copy Work To Commit', 'Copy "the Work Id + comma + space + Subject of Work" to your clipboard (Used when you are committing the change)', () => {
+		createButton(workIdNode, 'Copy Work Id And Desc', 'Copy "the Work Id + comma + space + Subject of Work" to your clipboard (Used when you are committing the change)', () => {
 			var theId = workIdNode.innerHTML;
 			var subjectNode = SFAA.gE('userStoryDetailPage_userStoryWorkForm_subjectInput_inputComponent_outputStandalone_ileinner');
 			if(!subjectNode){
@@ -82,6 +90,54 @@ SFAA.workView = function(){
 		setWorkStatusesInWork();
 	}
 	
+	var putUpdateToDesciptionOfWork = () => {
+		
+		var getUTCTime = () => {
+			var now = new Date();
+			return now.toUTCString();
+		};
+		
+		var getUser = () => {
+			var userNav = SFAA.gE('userNavLabel');
+			if(userNav){
+				return userNav.innerHTML;
+			}
+			return '';
+		};
+		
+		var putUpdate = (textArea) => {
+			var dateTime = getUTCTime();
+			var who = getUser();
+			var updateMsg = '\n\n===== UPDATE On:' + dateTime + ', By ' + who + '\n';
+			textArea.value += updateMsg;
+			
+			textArea.focus();
+		};
+
+		var descTextArea = document.getElementById('userStoryWorkPage:storyWorkForm:detailsInput:formRow:input');
+		if(descTextArea){
+			var saveButton = SFAA.gCF('btn userStoryEditSaveButton');
+			createButton(saveButton, 'Put update', 'Put infromation that you are now updating description',() => putUpdate(descTextArea), {click: true, buttonType: 'button'});
+		}
+		
+		//var readOnlydescTextArea = document.getElementById('userStoryDetailPage:userStoryWorkForm:detailsInput:inputComponent:outputStandalone');
+		var readOnlydescTextArea = document.getElementById('userStoryDetailPage_userStoryWorkForm_detailsInput_inputComponent_outputStandalone_ilecell');
+		
+		if(readOnlydescTextArea){
+			readOnlydescTextArea.addEventListener('dblclick', () => {
+				
+				var modalTextArea = document.getElementById('userStoryDetailPage_userStoryWorkForm_detailsInput_inputComponent_outputStandalone');
+				var divParent = document.getElementById('InlineEditDialog_buttons');
+				
+				createButton(divParent, 'Put update', 'Put infromation that you are now updating description', () => putUpdate(modalTextArea), {click: true, buttonType: 'button'});
+				
+			});
+		}
+		
+		//'InlineEditDialog_buttons'
+	};
+	
+	putUpdateToDesciptionOfWork();
 	return {
 		
 	};
