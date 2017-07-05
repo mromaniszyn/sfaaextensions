@@ -120,7 +120,6 @@ SFAA.workView = function(){
 			createButton(saveButton, 'Put update', 'Put infromation that you are now updating description',() => putUpdate(descTextArea), {click: true, buttonType: 'button'});
 		}
 		
-		//var readOnlydescTextArea = document.getElementById('userStoryDetailPage:userStoryWorkForm:detailsInput:inputComponent:outputStandalone');
 		var readOnlydescTextArea = document.getElementById('userStoryDetailPage_userStoryWorkForm_detailsInput_inputComponent_outputStandalone_ilecell');
 		
 		if(readOnlydescTextArea){
@@ -133,8 +132,6 @@ SFAA.workView = function(){
 				
 			});
 		}
-		
-		//'InlineEditDialog_buttons'
 	};
 	
 	putUpdateToDesciptionOfWork();
