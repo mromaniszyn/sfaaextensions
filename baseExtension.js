@@ -92,7 +92,6 @@ var SFAA = function(){
 	
 	var copyTextToClipboard = (txt, url) => {
 		 var b = docs.body();
-		// //var textArea = document.createElement("textarea");
 		var txtarea = docs.add(b, 'textarea');
 		txtarea.style.position = 'fixed';
 		txtarea.style.top = 0;
@@ -106,24 +105,12 @@ var SFAA = function(){
 		txtarea.style.background = 'transparent';
 		txtarea.value = txt;
 		
-		//document.body.appendChild(textArea);
 		txtarea.select();
 		
 		tryIt( () => document.execCommand('copy')  );
 				
 		docs.del(b, txtarea);
-		// //document.body.removeChild(textArea);
-		
-		
-		// tryIt( (ev) => {
-			// var u = 'http://qg.com';
-			// var t = 'hh';
-			// var c = ev.clipboardData || window.clipboardData;
-			// if(c){
-				// c.setData('Text', u);
-			// }
-		// } );
-		
+	
 	};
 	
 	var hasClass = (node, clsName) => {
@@ -133,6 +120,9 @@ var SFAA = function(){
 	var getView = function(){
 		return tryIt( () => {
 			var list = docs.gE('tabBar');
+			if(!list){
+				return 'Unknown View';
+			}
 			var children = list.childNodes;
 			for(var i = 0, ci= children.length; i<ci;i++){
 				var child = children[i];
@@ -187,8 +177,3 @@ var SFAA = function(){
 		workStatuses : workStatuses
 	};
 }();
-
-
-//alert("SFAA 08" + SFAA.getView());
-//alert("SFAA 06");
-
