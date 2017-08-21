@@ -158,6 +158,26 @@ var SFAA = function(){
 		{ text:"Triaged"},
 		{ text:"Waiting"}];
 		
+	var createCopyButton = (parentNode, description, title, callback, options) => {
+		options = options || {'copy': true};
+		var btn = SFAA.addAfter(parentNode, 'BUTTON');
+		btn.innerHTML = description;
+		btn.title = title;
+		
+		if(options.copy){
+			SFAA.addClick(btn, () => {
+				var txt = callback();
+				SFAA.copyText(txt);
+			});
+		}
+		if(options.click){
+			SFAA.addClick(btn, callback);
+		}
+		if(options.buttonType){
+			btn.type = options.buttonType;
+		}
+	};
+		
 	return {
 		consts: consts,
 		gE : docs.gE,
@@ -170,10 +190,11 @@ var SFAA = function(){
 		
 		getUrl : winds.getUrl,
 		
-		
 		copyText : copyTextToClipboard,
 		getView : getView,
 		
-		workStatuses : workStatuses
+		workStatuses : workStatuses,
+		
+		createCopyButton: createCopyButton
 	};
 }();
