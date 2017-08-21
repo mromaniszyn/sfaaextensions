@@ -4,8 +4,15 @@
 	"version": "1.0.0.6",
 	"content_scripts": [
 	{
-	  "matches": ["https://quad.my.salesforce.com/*", "https://*.visual.force.com/*"],
-	  "js": ["baseExtension.js", "workView.js", "buildExtension.js", "sprintExtension.js"]
+		"matches": ["https://quad.my.salesforce.com/*", "https://*.visual.force.com/*"],
+		"js": ["baseExtension.js", "workView.js", "buildExtension.js", "sprintExtension.js"]
 	}
+	],
+	"options_ui": {
+		"page": "options/index.html",
+		"chrome_style": true
+	},
+	"permissions": [
+		"storage"
 	]
 }

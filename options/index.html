@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { 
+		margin: 0;
+	}
+	h1 {
+		-webkit-margin-before: 0px;
+	}
+	input[type="checkbox"] {
+		vertical-align: top;
+	}
+	.section {
+		border-bottom: solid lightgray 1px;
+		padding: 10px;
+	}
+	.align-right {
+		text-align: right;
+	}
+	.pull-left {
+		float: left;
+	}
+  </style>
+</head>
+
+<body>
+	<div class="section">
+		<h1>Sprints</h1>
+		<label>
+			<input type="checkbox" id="sprints-chatter">
+			Hide "Chatter" when empty
+		</label>
+	</div>
+	<div class="section align-right">
+		<div class="pull-left" id="status"></div>
+		<button id="save">Save</button>
+	</div>
+	
+	<script src="options.js"></script>
+</body>
+</html>
