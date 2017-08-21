@@ -4,6 +4,26 @@ SFAA.workView = function(){
 		return {};
 	}
 	
+	var createButton = (parentNode, description, title, callback, options) => {
+		options = options || {'copy': true};
+		var btn = SFAA.addAfter(parentNode, 'BUTTON');
+		btn.innerHTML = description;
+		btn.title = title;
+		
+		if(options.copy){
+			SFAA.addClick(btn, () => {
+				var txt = callback();
+				SFAA.copyText(txt);
+			});
+		}
+		if(options.click){
+			SFAA.addClick(btn, callback);
+		}
+		if(options.buttonType){
+			btn.type = options.buttonType;
+		}
+	};
+	
 	var addWorkIdButtons = () => {
 		var div = SFAA.gCF('content');
 		if(!(div && div.tagName === 'DIV')){
@@ -11,7 +31,7 @@ SFAA.workView = function(){
 		}
 		var workIdNode = SFAA.gChT(div, 'H2');
 
-		SFAA.createCopyButton(workIdNode, 'Copy All Work', 'Copy "the Work Id + comma + space + Subject of Work + space + Url" to your clipboard.', () => {
+		createButton(workIdNode, 'Copy All Work', 'Copy "the Work Id + comma + space + Subject of Work + space + Url" to your clipboard.', () => {
 			var theId = workIdNode.innerHTML;
 			var subjectNode = SFAA.gE('userStoryDetailPage_userStoryWorkForm_subjectInput_inputComponent_outputStandalone_ileinner');
 			if(!subjectNode){
@@ -21,7 +41,7 @@ SFAA.workView = function(){
 			return theId + ', ' + subject + ' ' + workIdNode.baseURI;
 		});
 		
-		SFAA.createCopyButton(workIdNode, 'Copy Work Id And Desc', 'Copy "the Work Id + comma + space + Subject of Work" to your clipboard (Used when you are committing the change)', () => {
+		createButton(workIdNode, 'Copy Work Id And Desc', 'Copy "the Work Id + comma + space + Subject of Work" to your clipboard (Used when you are committing the change)', () => {
 			var theId = workIdNode.innerHTML;
 			var subjectNode = SFAA.gE('userStoryDetailPage_userStoryWorkForm_subjectInput_inputComponent_outputStandalone_ileinner');
 			if(!subjectNode){
@@ -30,8 +50,8 @@ SFAA.workView = function(){
 			var subject = subjectNode.innerHTML;
 			return theId + ', ' + subject;
 		});
-		SFAA.createCopyButton(workIdNode, 'Copy Work Id And Url', 'Copy "the Work Id + space + url to it" to your clipboard', () => {return workIdNode.innerHTML + ' ' + workIdNode.baseURI; });		
-		SFAA.createCopyButton(workIdNode, 'Copy Work Id', 'Copy the Work Id to your clipboard', () => { return workIdNode.innerHTML; });
+		createButton(workIdNode, 'Copy Work Id And Url', 'Copy "the Work Id + space + url to it" to your clipboard', () => {return workIdNode.innerHTML + ' ' + workIdNode.baseURI; });		
+		createButton(workIdNode, 'Copy Work Id', 'Copy the Work Id to your clipboard', () => { return workIdNode.innerHTML; });
 	};
 	
 	addWorkIdButtons();
