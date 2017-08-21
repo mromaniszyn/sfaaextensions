@@ -1,4 +1,3 @@
-
 var getWorksFromBuild = () => {
 	var list = document.getElementsByClassName("dataRow");
 	var items = "";
@@ -13,6 +12,15 @@ var getWorksFromBuild = () => {
 	}
 	
 	SFAA.copyText(items);
+};
+
+var addBuildNameButtons = () => {
+	var div = SFAA.gCF('content');
+	if(!(div && div.tagName === 'DIV')){
+		return;
+	}
+	var buildNameNode = SFAA.gChT(div, 'H2');
+	SFAA.createCopyButton(buildNameNode, 'Copy Build Name', 'Copy Build Name to clipboard', () => { return buildNameNode.innerHTML; });
 };
 
 if ((SFAA.getView() === SFAA.consts.views.build)) {
@@ -32,4 +40,6 @@ if ((SFAA.getView() === SFAA.consts.views.build)) {
 			pbTitle.insertAdjacentElement("afterEnd", tdElement);
 		}
 	}
+	
+	addBuildNameButtons();
 }

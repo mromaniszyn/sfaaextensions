@@ -11,7 +11,6 @@ if (!String.prototype.format) {
 }
 
 var SFAA = function(){
-
 	var consts = {
 		views: {
 			home: 'Home',
@@ -20,7 +19,6 @@ var SFAA = function(){
 			sprints: 'Sprints',
 		}
 	};
-
 	
 	var docs = {};	
 	docs.gE = function(elementId){
@@ -52,7 +50,6 @@ var SFAA = function(){
 	docs.del = (node, toRemove) => {
 		node.removeChild(toRemove);
 	};
-
 	
 	docs.addAfter = (node, tagName) => {
 		var newNode = document.createElement(tagName);
@@ -87,11 +84,10 @@ var SFAA = function(){
 			console.log(err);
 		}
 
-	};
-	
+	};	
 	
 	var copyTextToClipboard = (txt, url) => {
-		 var b = docs.body();
+		var b = docs.body();
 		var txtarea = docs.add(b, 'textarea');
 		txtarea.style.position = 'fixed';
 		txtarea.style.top = 0;
@@ -109,8 +105,7 @@ var SFAA = function(){
 		
 		tryIt( () => document.execCommand('copy')  );
 				
-		docs.del(b, txtarea);
-	
+		docs.del(b, txtarea);	
 	};
 	
 	var hasClass = (node, clsName) => {
@@ -118,7 +113,7 @@ var SFAA = function(){
 	};
 	
 	var getView = function(){
-		return tryIt( () => {
+		return tryIt(() => {
 			var list = docs.gE('tabBar');
 			if(!list){
 				return 'Unknown View';
@@ -158,6 +153,26 @@ var SFAA = function(){
 		{ text:"Triaged"},
 		{ text:"Waiting"}];
 		
+	var createCopyButton = (parentNode, description, title, callback, options) => {
+		options = options || {'copy': true};
+		var btn = SFAA.addAfter(parentNode, 'BUTTON');
+		btn.innerHTML = description;
+		btn.title = title;
+		
+		if(options.copy){
+			SFAA.addClick(btn, () => {
+				var txt = callback();
+				SFAA.copyText(txt);
+			});
+		}
+		if(options.click){
+			SFAA.addClick(btn, callback);
+		}
+		if(options.buttonType){
+			btn.type = options.buttonType;
+		}
+	};
+		
 	return {
 		consts: consts,
 		gE : docs.gE,
@@ -170,10 +185,11 @@ var SFAA = function(){
 		
 		getUrl : winds.getUrl,
 		
-		
 		copyText : copyTextToClipboard,
 		getView : getView,
 		
-		workStatuses : workStatuses
+		workStatuses : workStatuses,
+		
+		createCopyButton: createCopyButton
 	};
 }();
