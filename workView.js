@@ -97,7 +97,7 @@ SFAA.workView = function(){
 		var descTextArea = document.getElementById('userStoryWorkPage:storyWorkForm:detailsInput:formRow:input');
 		if(descTextArea){
 			var saveButton = SFAA.gCF('btn userStoryEditSaveButton');
-			createButton(saveButton, 'Put update', 'Put infromation that you are now updating description',() => putUpdate(descTextArea), {click: true, buttonType: 'button'});
+			SFAA.createCopyButton(saveButton, 'Put update', 'Put infromation that you are now updating description',() => putUpdate(descTextArea), {click: true, buttonType: 'button'});
 		}
 		
 		var readOnlydescTextArea = document.getElementById('userStoryDetailPage_userStoryWorkForm_detailsInput_inputComponent_outputStandalone_ilecell');
@@ -108,8 +108,7 @@ SFAA.workView = function(){
 				var modalTextArea = document.getElementById('userStoryDetailPage_userStoryWorkForm_detailsInput_inputComponent_outputStandalone');
 				var divParent = document.getElementById('InlineEditDialog_buttons');
 				
-				createButton(divParent, 'Put update', 'Put infromation that you are now updating description', () => putUpdate(modalTextArea), {click: true, buttonType: 'button'});
-				
+				SFAA.createCopyButton(divParent, 'Put update', 'Put infromation that you are now updating description', () => putUpdate(modalTextArea), {click: true, buttonType: 'button'});
 			});
 		}
 	};
