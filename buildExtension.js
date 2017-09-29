@@ -1,6 +1,6 @@
 var getWorksFromBuild = () => {
 	var list = document.getElementsByClassName("dataRow");
-	var result = [];
+	var workInfos = [];
 	for (var i = 0; i < list.length; i++) {
 		var element = list[i];
 		var dataCells = element.getElementsByClassName("dataCell");
@@ -11,12 +11,12 @@ var getWorksFromBuild = () => {
 			name: currentDataCell.innerHTML,
 			href: aNode.href
 		};
-		result.push(workInfo);
+		workInfos.push(workInfo);
 	}	
-	return result;
+	return workInfos;
 };
 
-var addCopyToClipboardButton = () => {
+var copyWorksToClipboard = () => {
 	var items = "";
 	var works = getWorksFromBuild();
 	for (var i = 0, c = works.length; i < c; i++) {
@@ -28,7 +28,7 @@ var addCopyToClipboardButton = () => {
 	SFAA.copyText(items);
 };
 
-var addOpenAllButton = () => {
+var openAllWorks = () => {
 	var works = getWorksFromBuild();
 	for(var i = 0, c = works.length; i < c; i++){
 		var work = works[i];		
@@ -45,19 +45,20 @@ var addBuildNameButtons = () => {
 	SFAA.createCopyButton(buildNameNode, 'Copy Build Name', 'Copy Build Name to clipboard', () => { return buildNameNode.innerHTML; });
 };
 
-var addButtonToListOfWorks = (cfg) => {
-	if(!cfg){
+var addButtonToListOfWorks = (config) => {
+	if(!config){
 		return;
 	}
 	var button = document.createElement("button");
-	var buttonTextNode = document.createTextNode(cfg.buttonText);
+	var buttonTextNode = document.createTextNode(config.buttonText);
 	button.appendChild(buttonTextNode);
-	button.id = cfg.buttonId;
-	button.addEventListener("click", cfg.callback);
+	button.id = config.buttonId;
+	button.title = config.buttonTitle;
+	button.addEventListener("click", config.callback);
 	
 	var tdElement = document.createElement("td");
 	tdElement.appendChild(button);
-	cfg.anchor.insertAdjacentElement("afterEnd", tdElement);	
+	config.anchor.insertAdjacentElement("afterEnd", tdElement);	
 };
 
 if ((SFAA.getView() === SFAA.consts.views.build)) {
@@ -68,14 +69,16 @@ if ((SFAA.getView() === SFAA.consts.views.build)) {
 		if (h3Elements && h3Elements.length === 1 && h3Elements[0].innerHTML === "Work (Scheduled Build)") {
 			addButtonToListOfWorks({
 				buttonText: "Open All Works",
-				buttonId: "Open All Works In Separate Tabs",
-				callback: addOpenAllButton,
+				buttonTitle: "Open All Works In Separate Tabs",
+				buttonId: "openAllWorks",
+				callback: openAllWorks,
 				anchor: pbTitle
 			});
 			addButtonToListOfWorks({
 				buttonText: "Copy to clipboard",
 				buttonId: "copyWorksToClipboardButton",
-				callback: addCopyToClipboardButton,
+				buttonTitle: "Copy all works (work Id / description) to the clipboard",
+				callback: copyWorksToClipboard,
 				anchor: pbTitle
 			});
 
